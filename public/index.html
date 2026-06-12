@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Voxa AI Reminder</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+    input {
+      width: 80%;
+      padding: 12px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 12px 20px;
+      margin-top: 10px;
+      background: #00c3ff;
+      border: none;
+      cursor: pointer;
+    }
+    .box {
+      margin-top: 20px;
+      background: #222;
+      padding: 15px;
+      min-height: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Voxa AI 🤖 Reminder System</h1>
+
+<input id="prompt" placeholder="Type your reminder..." />
+<br>
+<button onclick="send()">Send</button>
+
+<div class="box" id="output">Response will appear here...</div>
+
+<script>
+async function send() {
+  const prompt = document.getElementById("prompt").value;
+
+  const res = await fetch("/api/generate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await res.json();
+  document.getElementById("output").innerText = data.text;
+}
+</script>
+
+</body>
+</html>
